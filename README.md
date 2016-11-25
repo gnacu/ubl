@@ -36,7 +36,7 @@ System requirements are unimaginably low. The only functions PHP needs to suppor
 
 Posts are stored in a /posts folder. Each post consists of two files, x.json and x.html. Where x is the post number, starting at 1 and going up without limit to however many posts you may make. The x.json file contains a very small JSON encoded object with the following properties: slug, date, title, type. The slug is a human-readable, unchanging identifier for the post, used by Disqus for uniquely identifing the post. Date is a human-readable, aka preformatted, date string. Title is the title of the article. And type is a like a single tag for categorizing your posts. The x.html file contains an HTML fragment, usually a series of p tags, with some images and an optional ol footnotes list at the bottom. It is the body of the post.
 
-In the /posts folder is also an index.json file. This file contains a JSON object with just one property, count. It must be set to the largest post number you have published.
+In the /posts folder is also an index.json file. This file contains a JSON object with just one property, count. It must be set to the largest post number you have published. There is also a preview feature. You can upload an x.json and x.html file with a number that is one higher than that specified by /posts/index.json.  It will not appear on the main homepage because index.json doesn't specify that it exists. To view it, in place on the site, just add ?preview to the url of the site. This will cause the index.php loop to include one post number more than specified in index.json. Bingo. You can also click the link to see how it'll look in the single post view.
 
 ##How it works
 
@@ -53,6 +53,23 @@ Post.php takes the ?p=x GET variable, and uses it to load the json and html file
 Archive.php does almost the same thing as index.php, except it excludes the post bodies, and it doesn't limit to the most recent X articles.
 
 The search form that is included by the main template in the footer of the page, and by archive.php before the list of posts, is also incredibly simple. It has one text field and a search button. And it submits to /search, aka search.php. This file does nothing except spit out a location: header to redirect to duckduckgo.com with the appropriate site: parameter. 
+
+##Installation
+
+Not much to do. 
+
+* Upload the entire thing to a folder that's hosted by Apache. (It's intended that a domain will point directly to this root folder.)
+* Rename the htaccess file to .htaccess to make it active. 
+* Make sure privileges allow Apache to see the file.
+* You will need to configure your own domain, and probably an Apache virtualhost. 
+* Make sure Apache uses the htaccess file. 
+* Make sure PHP is active for your virtualhost.
+* Customize the template, graphics and resources/main.css. 
+* Create an account at Disqus and fill in your site's relevant details in post.php. 
+* Set your domain into the site: param for DuckDuckGo in search.php.
+* Change the template name at the top of either archive.php or post.php for optional alternative templates.
+
+And that is just about it. 
 
 ##Conclusion
 
