@@ -51,3 +51,11 @@ An .htaccess file is found in the root folder that will add the .php ending to f
 Post.php takes the ?p=x GET variable, and uses it to load the json and html file from /posts for just that number. It formats a header just as the index.php file did, and puts in the body of just that one post. It then includes the javascript necessary to invoke Disqus at the bottom of the post. And it puts the slug of the post and the post's canonical URL into the Disqus config settings for this article. And it then exports this dynamic content into the template. An alternative template here can be used if desired.
 
 Archive.php does almost the same thing as index.php, except it excludes the post bodies, and it doesn't limit to the most recent X articles.
+
+The search form that is included by the main template in the footer of the page, and by archive.php before the list of posts, is also incredibly simple. It has one text field and a search button. And it submits to /search, aka search.php. This file does nothing except spit out a location: header to redirect to duckduckgo.com with the appropriate site: parameter. 
+
+##Conclusion
+
+And that is it folks. Because the images are lazy loading, you can puts lots of images in your posts and it isn't going to tax your server too much. If you need to toss the images in an S3 bucket, and or source your videos from Youtube or Vimeo. No database is required, because the posts are stored as files in the /posts folder. The PHP is super lightweight, it is used as a minimum requirement to loop over the post files and lightly format them and then string substitute them into the otherwise pure HTML template. 
+
+Disqus handles all the comments and does a splendid job of that. And DuckDuckGo handles all the fulltext indexing of your content and it too does a splendid job of that.
