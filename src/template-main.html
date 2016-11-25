@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>
+			C64 OS — An OS with Modern Concepts
+		</title>
+		<style type='text/css'>
+		
+		</style>
+		<link rel="stylesheet" href='resources/main.css' />
+		<link rel="stylesheet" href='resources/bigfoot-default.css' />
+
+		<script type='text/javascript' src='scripts/library.js'></script>
+		<script type='text/javascript' src='scripts/jquery-1.8.0.min.js'></script>
+		<script type='text/javascript' src='scripts/bigfoot.min.js'></script>
+		<script type='text/javascript' src='scripts/FancyZoom.js'></script>
+		<script type='text/javascript' src='scripts/FancyZoomHTML.js'></script>
+		<script type='text/javascript' src='scripts/lateimage.js'></script>
+		
+		<!-- Piwik -->
+		<script type="text/javascript">
+			var _paq = _paq || [];
+			_paq.push(["setDomains", ["*.c64os.com"]]);
+			_paq.push(['trackPageView']);
+			_paq.push(['enableLinkTracking']);
+			(function() {
+				var u="//analytics.nacu.ca/";
+				_paq.push(['setTrackerUrl', u+'piwik.php']);
+				_paq.push(['setSiteId', 3]);
+				var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+				g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+			})();
+		</script>
+		<noscript><p><img src="//analytics.nacu.ca/piwik.php?idsite=3" style="border:0;" alt="" /></p></noscript>
+		<!-- End Piwik Code -->
+	</head>
+	<body onload='initNotesAndZoom();'>
+		<div class='logo'>
+			<img src='resources/logo-c64os-transparent.png' alt='C64 OS Logo' width="600" height="200"><br>
+			Written and Maintained by Greg Nacu
+		</div>
+
+		<div class='root'>
+			<div class='main'>
+				<div class='introduction'>
+					<a href='resources/c64c-system.jpg'><img src='resources/c64c-system.jpg' class='c64csystem' width="800" height="577"></a>
+					<h1>
+						C64 OS has one goal.<br>
+						Make a Commodore 64 feel fast and useful in today&rsquo;s modern world.
+					</h1>
+					<p>
+						It's a very high bar. The C64 was introduced in 1982 and has an 8-bit, 1MHZ, 6510 CPU 
+						with just 64 kilobytes of directly addressable memory. It has a screen resolution of 
+						320x200 pixels, and a fixed palette of 16 colors. But, it is an incredibly 
+						versatile machine. And it enjoys an active userbase and a great variety of modern 
+						hardware expansions.
+					</p>
+					<h3>
+						The C64 has had many operating systems written for it, <sup><a href="#fn_h1" id="fnid_h1" class="footnote-link footnote-identifier-link">1</a></sup> 
+						So why write another?
+					</h3>
+					<p>
+						Some of these projects were designed to be experimental, 
+						or to demonstrate a point, rather than to solve a problem or to make using the C64 
+						better. Others had good intentions but pushed the machine in ways it wasn't designed
+						for, compromising on speed and usability in the pursuit of features available on more
+						powerful computers. The aim of C64 OS is to work with the limitations of the Commodore 64
+						and enable it to become useful.
+					</p>
+		
+					<img src='resources/logo-commodore.png' class='hr'>
+					<cite class='clear'>
+						&ldquo;What the C64 needs is great software to take advantage of new hardware.&rdquo;
+					</cite>
+					
+					<ol class='footnotes'>
+						<li id="fn_h1" class="footnote">
+							In alphabetical order: CLiPS, Contiki, GeckOS/A65, GEOS, LUnix/LNG, Wheels, WiNGs. And I'm sure more. [<a href="#fnid_h1" class="footnote-link footnote-back-link">&#8617;</a>]
+						</li>
+					</ol>
+					
+				</div>
+				
+				<div class='overlay'>
+					<div class='content'>
+						<h2>Background</h2>
+				
+						<p>
+							Every Commodore 64 comes with a built–in operating system. But it doesn't have a 
+							unified marketing name, and it hasn't changed significantly in nearly 35 years. The
+							C64's operating system is made up of two ROM chips on the motherboard.
+							These are, the KERNAL rom and the BASIC rom. Each chip occupies 8 kilobytes of space 
+							for a complete OS in a grand total of 16k. <sup><a href="#fn_c1" id="fnid_c1" class="footnote-link footnote-identifier-link">1</a></sup> 
+						</p>
+				
+						<p>
+							It's sometimes hard to notice that this is an operating system, because they are so
+							tightly integrated with the hardware that it just feels like the way the machine 
+							works. In fact, these two sets of code work beautifully together to implement 
+							all of the user experience when the C64 is first turned on.
+						</p>
+						
+						<p>
+							The KERNAL provides much more than just low–level access to I/O devices. The KERNAL
+							implements the C64's screen editor. This is what enables keypresses to produce text
+							on the screen. The fact that the cursor moves one place to the right after each 
+							character is typed is implemented by the KERNAL rom.
+						</p>
+						<p>
+							PETSCII is a variant of ASCII used by Commodore 8-Bit computers. I often wondered 
+							why Commodore bothered to use a proprietary text encoding. The answer is because of 
+							the way the KERNAL works with the keyboard and the screen editor, and the way the
+							character rom works with the VIC-II's video modes, and how BASIC interacts with the
+							KERNAL. These components all come together in a tight and beautiful package that 
+							we're all familiar with as the C64's blue screen of life.
+						</p>
+						<p>
+							The problem is that many of the basic assumptions from 35 years ago about how a 
+							computer should work are woefully insufficient for a modern computing experience.
+						</p>
+						
+						<ol class='footnotes'>
+							<li id="fn_c1" class="footnote">
+								Plus a 4K character set ROM. [<a href="#fnid_c1" class="footnote-link footnote-back-link">&#8617;</a>]
+							</li>
+						</ol>
+						
+						<h2>Design Goals</h2>
+
+						<p>
+							The primary design goal of C64 OS is to be true to the hardware. This means to 
+							work with it, the way the hardware wants to work. Not constantly fighting an uphill
+							battle slowing the machine down trying to get it to do something it's not designed
+							for.
+						</p>
+
+						<p>
+							First this means C64 OS is not pre–emptively multi–tasking. It is unashamedly 
+							unitasking. And second it is not attempting to ape the structure or the interaction 
+							model of any other operating system. C64 OS is not a unix clone, nor is it a Windows
+							or Mac OS clone. It is an experience that feels like it belongs on a C64.
+						</p>
+				
+						<p>
+							The goal is to provide a consistent user interface model against which 
+							applications and utilities can easily be written. C64 OS tries to get out of the way
+							as much as possible, while providing modern amenities to help write more powerful, 
+							more capable and easier to use programs.
+						</p>
+
+						<p>
+							C64 OS is written 100% in ASM and prioritizes its goals arounding making the C64 feel
+							fresh, fast and responsive.
+						</p>
+				
+						<h2>Features</h2>
+						
+						<ul>
+							<li>Event–driven execution model</li>
+							<li>Multi–layer text screen compositor</li>
+							<li>Advanced mouse and keyboard event system</li>
+							<li>Paged memory manager</li>
+							<li>PETSCII/ASCII conversion</li>
+							<li>Full-screen, menu based UI</li>
+							<li>Standardized open and save file dialogs</li>
+							<li>Efficient string and text management</li>
+							<li>Universal cut, copy and paste</li>
+							<li>Occupies 4K of resident memory</li>
+							<li>Application launcher</li>
+						</ul>
+						
+						<h2>Recommended Hardware</h2>
+
+						<p>
+							The C64 is awesome, but one of the things that makes it so awesome is that
+							there is a vibrant community of hardware expansion options. C64 OS is designed
+							to work with as minimal hardware as possible, a C64, a 1541 disk drive and a 
+							1351 or compatible mouse.
+						</p>
+						<p>
+							But the power comes in getting a few nice add-ons to bring your C64 into the
+							21st century.<br>
+							<br>
+						</p>
+
+						<h2>The Computer</h2>
+						<p>
+							<a class='img' href='resources/c64_commodore64.jpg'><img src="resources/blank.gif" class='fit' width='1024' height='768' alt='C64c Profile'></a><br>
+							A Commodore 64, of course.<br>
+							<br>
+						
+							<a class='img' href='resources/c128_commodore128.jpg'><img src="resources/blank.gif" class='fit' width='1024' height='768' alt='C128 Profile'></a><br>
+							A Commodore 128, is a great alternative.<br>
+							<br>
+						</p>
+						
+						<h2>Input</h2>
+						<p>
+							<a class='img' href='resources/Mouse_1351.jpg'><img src="resources/blank.gif" class='fit' width='1024' height='557' alt='1351 Mouse'></a><br>
+							A 1351 Mouse<br>
+							<br>
+
+							<a class='img' href='resources/micromysv4.gif'><img src="resources/blank.gif" class='fit' width='600' height='420' alt='MicroMys v4 Mouse Adaptor'></a><br>
+							A MicroMys 4 adaptor <a onclick="document.getElementById('about_micromys4').show();" class='button'>about</a>
+							<br>
+							<span id="about_micromys4" class='hidden'>
+								<br>
+								If you're not lucky enough to have a 1351, the <a href="https://icomp.de/shop-icomp/en/shop/product/micromys-v4.html">MicroMys 4</a> adaptor is 
+								available from Individual Computers for a very reasonable price. It'll convert
+								a standard PS/2 mouse into a 1351 compatible.
+								<a onclick="document.getElementById('about_micromys4').hide();" class='button'>close</a>
+							</span>
+							<br>
+						</p>
+						
+						<h2>Storage</h2>
+						<p>
+							<a class='img' href='resources/jiffydos64.jpg'><img src="resources/blank.gif" class='fit' width='800' height='391' alt='JiffyDos 64 ROM Chip with Switch'></a><br>
+							A JiffyDOS 64 ROM <a onclick="document.getElementById('about_jiffydos_64').show();" class='button'>about</a>
+							<br>
+							<span id="about_jiffydos_64" class='hidden'>
+								<br>
+								JiffyDOS is a fairly old product, but it should be considered an absolute essential
+								on every C64. It is installed internally, replacing the default KERNAL rom. Which 
+								means it's not a dead simple plug in the back. But its compatibility and complete 
+								integration are worth the effort. It adds a permenant DOS wedge at the READY prompt, 
+								and when paired with drives that also support JiffyDOS it dramatically increases 
+								the speed of IEC serial transfers.
+								<br>
+								JiffyDOS is available from <a href="http://store.go4retro.com/jiffydos-kernal-rom-overlay-ic/">Retro Innovations</a> 
+								for $20. It's a must have.
+								<a onclick="document.getElementById('about_jiffydos_64').hide();" class='button'>close</a>
+							</span>
+							<br>
+							<br>
+
+							<a class='img' href='resources/uIEC-SD.jpg'><img src="resources/blank.gif" class='fit' width='300' height='300' alt='uIEC/SD Serial SD Card Drive'></a><br>
+							A uIEC/SD Drive <a onclick="document.getElementById('about_uiec_sd').show();" class='button'>about</a>
+							<br>
+							<span id="about_uiec_sd" class='hidden'>
+								<br>
+								A 1541 might be traditional, but the uIEC/SD is hard to beat. It lets you use a 
+								standard SD card as a mass storage device. The uIEC feels like using a CMD HD, 
+								except it costs a whole lot less, is much more reliable, quieter operation, and has 
+								the benefit of being able to pull the card and plug it into your Mac or PC to 
+								transfer data.<br>
+								<br>
+								If you want to hook it up externally, no soldering required, get the optional 
+								Deluxe Daughtercard. If you're adventuresome, good with your hands and want to save
+								a few dollars, you can skip the Daughtercard and mount the uIEC/SD inside the C64's
+								case.<br>
+								<br>
+								Best yet, they're readily available from <a href="http://store.go4retro.com/uiec-sd/">Retro Innovations</a> 
+								for just $60, Deluxe Daughtercard included.
+								<a onclick="document.getElementById('about_uiec_sd').hide();" class='button'>close</a>
+							</span>
+							<br>
+							<br>
+
+							<a class='img' href='resources/1gb-sd.jpg'><img src="resources/blank.gif" class='fit' width='484' height='253' alt='Two 1GB SD Cards'></a><br>
+							1GB SD Cards <a onclick="document.getElementById('about_1gb_sd').show();" class='button'>about</a>
+							<br>
+							<span id="about_1gb_sd" class='hidden'>
+								<br>
+								Once you have a uIEC/SD Drive, the SD card becomes the new floppy.<br>
+								<br>
+								SD cards are extremely common. A 1GB SD card costs less than $3 on eBay. And you 
+								can buy them in lots of 10 for even less, each with a protective case. They come
+								pre-formatted for use on a Mac or PC, but that means they're preformatted for your 
+								C64 too!<br>
+								<br>
+								1GB on a C64 is a huge amount of space. But having several gives you the 
+								flexibility to configure different working environments for your 64. You can 
+								dedicate a 1GB card just for C64 OS, so it can liberally use temporary storage as
+								memory swap space, and more.
+								<a onclick="document.getElementById('about_1gb_sd').hide();" class='button'>close</a>
+							</span>
+							<br>
+						</p>
+
+						<h2>Networking</h2>
+						<p>
+							<a class='img' href='resources/64nic+.jpg'><img src="resources/blank.gif" class='fit' width='453' height='480' alt='64NIC+ Ethernet Cartridge'></a><br>
+							A 64NIC+ Ethernet Cartridge <a onclick="document.getElementById('about_64nic').show();" class='button'>about</a>
+							<br>
+							<span id="about_64nic" class='hidden'>
+								<br>
+								The 64NIC+ is a 10-Mbit ethernet cartridge, compatible with RR-Net. It already has
+								a variety of interesting software projects that make use of it so you can play 
+								around with it right away. But it is going to play a central role C64 OS's mission 
+								to make a C64 useful again.<br>
+								<br>
+								RS-232 cartridges like SwiftLink or Turbo232 were once essential pieces to hook up
+								a fast modem and get your 64 on the net. But that was a long time ago, and modems 
+								are dead. An ethernet cartridge is the new RS-232 cartridge. It's your ticket to
+								internet access on your C64.<br>
+								<br>
+								These are available from <a href="http://store.go4retro.com/uiec-sd/">Retro Innovations</a>
+								for a very reasonable $55, including a case. Although you have to put the holes in
+								the case yourself.
+								<a onclick="document.getElementById('about_64nic').hide();" class='button'>close</a>
+							</span>
+							<br>
+						</p>
+
+						<h2>Video</h2>
+						<p>
+							<a class='img' href='resources/portta-video-converter-double.jpg'><img src="resources/blank.gif" class='fit' width='800' height='800' alt='S-Video to VGA Video Adaptor'></a><br>
+							An S-Video Converter <a onclick="document.getElementById('about_videoconverter').show();" class='button'>about</a>
+							<br>
+							<span id="about_videoconverter" class='hidden'>
+								<br>
+								The one shown here is a mini <a href="http://www.port-ta.com">Portta Video Converter</a>. It's very small, powered via a
+								USB cable which you can connect to any USB charger. It has two selectable inputs, 
+								either composite video via one RCA jack, or mini-din S-Video. Newer C64s and C128s 
+								output S-Video via two RCA jacks. But you can either buy or make cables that will
+								join these into a standard S-Video jack.<br>
+								<br>
+								The video converter outputs 25-pin VGA. This very small, inexpensive converter 
+								allows you to hook up your C64 or C128 to a myriad of more modern displays. Big and
+								small, light weight, wall mountable, you name it. There are many converters like
+								this one available at a range of prices and qualities. But, you do not need to use 
+								a traditional Commodore-compatible 13" CRT monitor.
+								<a onclick="document.getElementById('about_videoconverter').hide();" class='button'>close</a>
+							</span>
+							<br>
+							<br>
+
+							<a class='img' href='resources/video-to-svideo.jpg'><img src="resources/blank.gif" class='fit' width='1024' height='686' alt='Commodore Video to S-Video Cable'></a><br>
+							A Video to S-Video Cable <a onclick="document.getElementById('about_videotosvideocable').show();" class='button'>about</a>
+							<br>
+							<span id="about_videotosvideocable" class='hidden'>
+								<br>
+								While you're busy buying an S-Video to VGA converter, you may have noticed that your
+								C64 has two RCA cables that carry the Luma and Chroma signals, rather than a S-Video
+								jack. The C64 outputs S-Video compatible signals, but S-Video packages these two 
+								signals via a single cable with a mini-din connector.<br>
+								<br>
+								You can make one of these cables yourself. But why not <a href='http://www.ebay.com/itm/6-Commodore-Video-Monitor-Cable-S-Video-Audio-C-64-C-128-8-PIN-/332028370296'>grab one off eBay</a>
+								for about $18 instead? I think these cables are handmade, but they're reliable and 
+								professional at a very reasonable price.
+								<a onclick="document.getElementById('about_videotosvideocable').hide();" class='button'>close</a>
+							</span>
+							<br>
+							<br>
+						</p>
+					</div>
+					
+					<div class='blog'>
+						<a name="post" class='post'><h2>Development Progress Blog</h2></a>
+
+						<div><!--{post}--></div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class='search'>		
+			<form action='search' method='get'>
+				<input type='text' name='q' placeholder='Search c64os.com'> <input type='submit' value='Search'>
+			</form>
+		</div>
+		
+		<script type='text/javascript'>
+			var bigfoot = null;
+			
+			function initNotesAndZoom() {
+				bigfoot = $.bigfoot();
+
+				window.addEventListener('message', function (event) {
+					$('body').attr('data-footnote-style', event.data);
+					bigfoot.updateSetting('positionContent', event.data !== 'bottom');
+				});
+				
+				setupZoom();
+				ImgLoad('img');
+			}
+		</script>
+		
+		<script id="dsq-count-scr" src="//c64os.disqus.com/count.js" async></script>
+	</body>
+</html>

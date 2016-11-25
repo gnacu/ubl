@@ -1,0 +1,314 @@
+
+
+body {
+	margin:40px;
+	background:url("pattern-raster.png");
+	margin-bottom:20px;
+}
+
+body > div {
+	background-color:white;
+}
+
+h2 {
+	font-family:helvetica;
+	font-size:20px;
+}
+
+a {
+	text-decoration:none;
+	color: #4374fc;
+}
+
+a.standalone {
+	font-family:helvetica;
+	font-size:14px;
+}
+
+a:visited {
+	text-decoration:none;
+	color: #345ac4;
+}
+
+a:hover, a:visited:hover {
+	text-decoration:underline;
+}
+
+a.slug:hover {
+	text-decoration:none;
+}
+
+
+
+.hidden {
+	display:none;
+}
+
+a.button {
+	display:inline-block;
+	border:1px solid #ccc;
+	color:#333;
+	padding:0px 5px;
+	border-radius:3px;
+	cursor:pointer;
+}
+a.button:hover {
+	text-decoration: none;
+}
+
+p {
+	font-family:times;
+	font-size:18px;
+	color:#333;
+}
+
+cite.clear {
+	clear:both;
+	text-align:center;
+	display:block;
+
+	font-style:italic;
+	font-size:20px;
+
+	margin-top:20px;
+	margin-bottom:20px;
+}
+
+ol.footnotes {
+	font-size: 10px;
+	padding-left: 15px;
+	font-family: sans-serif;
+	font-style: italic;
+}
+ol.footnotes li {
+	padding-bottom:10px;
+}
+hr {
+	height:1px;
+	background-color:#999;
+	border:0;
+	width:60%;
+	
+	margin-top:50px;
+	margin-bottom:50px;
+}
+
+hr.clear {
+	clear:both;
+}
+
+img.fit {
+	max-width:90%;
+	width:auto;
+	height:auto;
+	
+	border:1px solid #999;
+	padding:5px;
+	
+	box-sizing:border-box;
+}
+
+img.fixed {
+	max-width:90%;
+	max-height:auto;
+	
+	border:1px solid #999;
+	padding:5px;
+	
+	box-sizing:border-box;
+}
+
+body > div.logo {
+	margin-bottom:40px;
+	text-align:center;
+	font-size:10px;
+	padding-top:20px;
+	padding-bottom:5px;
+	
+	background:url("background-grey.png") white repeat-x left -83px;
+	
+	margin-left:auto;
+	margin-right:auto;
+	max-width:1100px;
+}
+
+body > div.logo img {
+	max-width:100%;
+	width:auto;
+	height:auto;
+}
+
+body > div.root {
+	margin-left:auto;
+	margin-right:auto;
+	max-width:1100px;
+}
+
+div.main {
+	overflow:hidden;
+	padding:20px;
+	
+	background-image:url("c64c-profile-crop.png");
+	background-repeat:no-repeat;
+	background-position:bottom right;
+	background-size:75%;
+}
+
+div.introduction img.c64csystem {
+	width:50%;
+	height:auto;
+	
+	float:left;
+	padding-right:20px;
+	padding-bottom:20px;
+}
+
+div.introduction img.hr {
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	width: 64px;
+	clear:both;
+}
+
+div.introduction cite.clear { 
+	background-color: #4374fc;
+	color: white;
+	padding: 20px;
+	border-radius:3px;
+}
+
+div.main div.overlay {
+	background:rgba(255,255,255,0.6) url("logo-commodore.png") 16px bottom no-repeat;
+	background-size:100px;
+	overflow:hidden;
+}
+
+div.main div.overlay div.content {
+	float:left;
+	width:30%;
+	padding-right: 20px;
+	box-sizing: border-box;
+	padding-bottom: 100px;
+}
+
+div.main div.overlay div.content img.fit {
+	max-width:100%;
+}
+
+div.main div.overlay div.content ul {
+	padding-left: 20px;
+}
+div.main div.overlay div.content ul li {
+	padding-bottom: 5px;
+}
+
+div.content h2 {
+	color:#555;
+	border:0px solid #e7e7e7;
+	border-bottom-width:1px;
+}
+
+div.content p {
+	color:#555;
+	font-size:14px;
+	text-align:justify;
+}
+
+div.content ul li {
+	color:#555;
+	font-size:14px;
+}
+
+
+div.main div.overlay div.blog {
+	float:right;
+	width:70%;
+	padding-bottom:300px;
+}
+
+
+div.blog a.post h2 {
+	color:#555;
+}
+
+div.blog a.post,
+div.blog a.post:hover {
+	color:#555;
+	text-decoration:none;
+}
+
+div.blog h3 {
+	font-family:helvetica;
+	font-weight:light;
+	font-size:26px;
+	color:#76bfec;
+	text-transform:capitalize;
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+
+div.blog h3 a.title, div.blog h3 a.title:visited {
+	color:#76bfec;
+}
+
+div.blog h3 em {
+	font-size:12px;
+	color:#ccc;
+	white-space:nowrap;
+}
+
+div.blog div.comments {
+	background-color: #4374fc;
+	border-radius: 4px;
+	width: 150px;
+	height: 30px;
+	line-height: 30px;
+	color: white;
+	text-align: center;
+}
+
+div.blog div.comments a,
+div.blog div.comments a:hover,
+div.blog div.comments a:visited {
+	display:block;
+	width:150px;
+	height:30px;
+	line-height:30px;
+	color:white;
+	text-decoration:none;
+}
+
+div.blog p {
+	font-size:16px;
+	color:#222;
+}
+
+div.date {
+	margin-top:40px;
+	font-size:12px;
+	font-family:times;
+	font-style:italic;
+}
+
+div.date em {
+	padding-left:20px;
+	color: #aaa;
+}
+
+div.date hr {
+	height:1px;
+	background-color:#76bfec;
+	border:0;
+	width:75%;
+	
+	margin-left:0px;
+	margin-top:0px;
+	margin-bottom:10px;
+}
+
+div.search {
+	background-color: transparent;
+	text-align: center;
+	margin-top: 20px;
+}
