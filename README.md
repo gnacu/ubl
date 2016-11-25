@@ -69,6 +69,8 @@ Not much to do.
 * Set your domain into the site: param for DuckDuckGo in search.php.
 * Change the template name at the top of either archive.php or post.php for optional alternative templates.
 
+Additionally, if you want analytics, just stick the analytics script code into the template(s). I use and recommend Piwik (https://piwik.org) if you're looking for a locally installable, private analytics package. Stick it to the man. No Google for me please.
+
 And that is just about it. 
 
 ##Conclusion
