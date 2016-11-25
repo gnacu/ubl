@@ -59,3 +59,5 @@ The search form that is included by the main template in the footer of the page,
 And that is it folks. Because the images are lazy loading, you can puts lots of images in your posts and it isn't going to tax your server too much. If you need to toss the images in an S3 bucket, and or source your videos from Youtube or Vimeo. No database is required, because the posts are stored as files in the /posts folder. The PHP is super lightweight, it is used as a minimum requirement to loop over the post files and lightly format them and then string substitute them into the otherwise pure HTML template. 
 
 Disqus handles all the comments and does a splendid job of that. And DuckDuckGo handles all the fulltext indexing of your content and it too does a splendid job of that.
+
+Checkout my blog, http://www.c64os.com, which is the original site that I created UBL for. All you've gotta do is zen-garden the template files to suit your tastes.
