@@ -9,7 +9,7 @@ $description = "A blog about making a C64 useful in a modern world. Tracks the d
 $logoURL     = "http://c64os.com/resources/logo-rss-c64os.png";
 $logoWidth   = "144";
 $logoHeight  = "48";
-$author			 = "gregorynacu@me.com (Gregory Nacu)";
+$author			 = "some@address.com (Gregory Nacu)";
 
 $postsInfo = file_get_contents("posts/index.json");
 $postsInfo = json_decode($postsInfo,true);
