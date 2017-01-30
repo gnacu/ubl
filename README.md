@@ -54,6 +54,8 @@ Archive.php does almost the same thing as index.php, except it excludes the post
 
 The search form that is included by the main template in the footer of the page, and by archive.php before the list of posts, is also incredibly simple. It has one text field and a search button. And it submits to /search, aka search.php. This file does nothing except spit out a location: header to redirect to duckduckgo.com with the appropriate site: parameter. 
 
+Added a feed.php script which turns UBL into an RSS Feed. Configuration is done in the header of this file.
+
 ##Installation
 
 Not much to do. 
