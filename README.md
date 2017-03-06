@@ -15,6 +15,7 @@ It's got lots of useful features, and it's got absolutely nothing that isn't ess
 
 * Templates written in pure HTML
 * Dynamic homepage showing most recent X articles
+* Auto-updating RSS Feed
 * Post specific view with permanent URL
 * Archive view with links to all posts
 * Preview in situ one post before publishing
@@ -45,6 +46,8 @@ When you want to make a post, you simply add a new x.json and x.html file to the
 When you load the main domain and index.php is loaded, it reads in the template file, then it reads in /posts/index.json which it decodes to get the total number of posts. It then loops in reverse order from the largest post number down, stopping after X posts, which is configurable as a define at the top of index.php. For each post number it reads in the json file, and formats a header for the post. Then it loads in the html body of the post. After reading in and formating X number of posts, if there are more posts it will add one more pseudo-post header with a link to the archive to view more. It then replaces the {post} token in the middle of the template file with all the dynamically generated content above and prints the whole thing to the browser.
 
 The template file includes the javascript to replace footnote links with bigfoot footnote popovers, to apply the image zoom to images correctly marked, and to add the Disqus comment counts to each article. Each article title links to /post?p=x where x is that post's number.
+
+The template file includes a link to the RSS Feed. The RSS Feed file automatically reads the posts folder the same way the main index.php file does. And generates a valid RSS feed that can be subscribed to by a RSS Reader. The feed entries include the post title, date, type, link to the full article and a preview of the first X characters of the content. You don't have to do anything to update the RSS Feed, simply write new articles and the feed is always up to date.
 
 An .htaccess file is found in the root folder that will add the .php ending to filenames that are missing it. This allows the link to /post to load the /post.php file. It makes the URL and links look a little cleaner and doesn't expose to the world that you are a dirty php-using animal.
 
