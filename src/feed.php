@@ -16,11 +16,16 @@ $postsInfo = json_decode($postsInfo,true);
 
 $posts = array();
 
+$postLimit = 30;
+
 for($i=$postsInfo["count"];$i>0;$i--) {
+	if(!$postLimit--)
+		break;
+	
 	$info = file_get_contents("posts/".$i.".json");
 	$info = json_decode($info,true);
 
-	$articleDesc = trim(preg_replace('/\s\s+/', ' ', strip_tags(file_get_contents("posts/".$i.".html",false,null,0,200))));
+	$articleDesc = trim(preg_replace('/\s\s+/', ' ', strip_tags(file_get_contents("posts/".$i.".html",false,null,0,200)))).". . .";
 
 	$postContent = "
 		<item>

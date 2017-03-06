@@ -8,6 +8,9 @@
 		<style type='text/css'>
 		
 		</style>
+
+		<link href="http://www.c64os.com/feed" rel="alternate" type="application/rss+xml" title="A blog about making a C64 useful in a modern world. Tracks the development progress of C64 OS, an event driven and network oriented unitasking OS for stock C64." />
+		
 		<link rel="stylesheet" href='resources/main.css' />
 		<link rel="stylesheet" href='resources/bigfoot-default.css' />
 
@@ -20,7 +23,7 @@
 	</head>
 	<body onload='initNotesAndZoom();'>
 		<div class='logo'>
-			<img src='resources/logo-c64os-transparent.png' alt='C64 OS Logo' width="600" height="200"><br>
+			<a href="/"><img src='resources/logo-c64os-transparent.png' alt='C64 OS Logo' width="600" height="200"></a><br>
 			Written and Maintained by Greg Nacu
 		</div>
 
@@ -331,7 +334,10 @@
 					</div>
 					
 					<div class='blog'>
-						<a name="post" class='post'><h2>Development Progress Blog</h2></a>
+						<div class='posthead'>
+							<a name="post" class='post'><h2>Development Progress Blog</h2></a>
+							<a href='http://www.c64os.com/feed'><img src='resources/icon-rss-subscribe.png' class='rssbutton' alt='Subscribe to C64OS.com with your favorite RSS Reader'></a>
+						</div>
 
 						<div><!--{post}--></div>
 
@@ -344,6 +350,9 @@
 			<form action='search' method='get'>
 				<input type='text' name='q' placeholder='Search c64os.com'> <input type='submit' value='Search'>
 			</form>
+			<span>
+				Powered by <a href="https://github.com/gnacu/ubl">Ultralight Blogging Platform</a>, By Gregory Nacu
+			</span>
 		</div>
 		
 		<script type='text/javascript'>
